@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bahria Town Karachi Bus Timings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .table-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #2980b9;
+            color: #fff;
+            padding: 10px;
+        }
+        td {
+            font-size: 1em;
+            padding: 8px;
+        }
+        .contact-info {
+            color: #c0392b;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .next-bus {
+            background-color: #ffeb3b;
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bahria Town Karachi Bus Timings</h1>
+    
+    <div class="table-container">
+        <h2>EV 2: BTK to Malir Halt</h2>
+        <p><strong>Headway Time:</strong> Every 30 minutes | <strong>Trip Duration:</strong> 1 hour 10 minutes</p>
+        <table id="ev2-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>6:30 AM</td></tr>
+                <tr><td>7:00 AM</td></tr>
+                <tr><td>7:30 AM</td></tr>
+                <tr><td>8:00 AM</td></tr>
+                <tr><td>8:30 AM</td></tr>
+                <tr><td>9:00 AM</td></tr>
+                <tr><td>9:30 AM</td></tr>
+                <tr><td>10:00 AM</td></tr>
+                <tr><td>10:30 AM</td></tr>
+                <tr><td>11:00 AM</td></tr>
+                <tr><td>11:30 AM</td></tr>
+                <tr><td>12:00 PM</td></tr>
+                <tr><td>12:30 PM</td></tr>
+                <tr><td>1:00 PM</td></tr>
+                <tr><td>1:30 PM</td></tr>
+                <tr><td>2:00 PM</td></tr>
+                <tr><td>2:30 PM</td></tr>
+                <tr><td>3:00 PM</td></tr>
+                <tr><td>3:30 PM</td></tr>
+                <tr><td>4:00 PM</td></tr>
+                <tr><td>4:30 PM</td></tr>
+                <tr><td>5:00 PM</td></tr>
+                <tr><td>5:30 PM</td></tr>
+                <tr><td>6:00 PM</td></tr>
+                <tr><td>6:30 PM</td></tr>
+                <tr><td>7:30 PM</td></tr>
+                <tr><td>8:30 PM</td></tr>
+                <tr><td>9:30 PM (Last Bus)</td></tr>
+            </tbody>
+        </table>
+        <p class="contact-info">For assistance, contact: 0310-2294187</p>
+    </div>
+
+    <div class="table-container">
+        <h2>EV 4: Numaish to BTK</h2>
+        <p><strong>Headway Time:</strong> Every 1 hour | <strong>Trip Duration:</strong> 1 hour 30 minutes</p>
+        <table id="ev4-table">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>7:00 AM</td></tr>
+                <tr><td>8:00 AM</td></tr>
+                <tr><td>9:00 AM</td></tr>
+                <tr><td>10:00 AM</td></tr>
+                <tr><td>11:00 AM</td></tr>
+                <tr><td>12:00 PM</td></tr>
+                <tr><td>1:00 PM</td></tr>
+                <tr><td>2:00 PM</td></tr>
+                <tr><td>3:00 PM</td></tr>
+                <tr><td>4:00 PM</td></tr>
+                <tr><td>5:00 PM</td></tr>
+                <tr><td>6:00 PM</td></tr>
+                <tr><td>7:00 PM</td></tr>
+                <tr><td>8:00 PM</td></tr>
+                <tr><td>9:00 PM (Last Bus)</td></tr>
+            </tbody>
+        </table>
+        <p class="contact-info">For assistance, contact: 0310-2294187</p>
+    </div>
+
+</div>
+
+<script>
+$(document).ready(function() {
+    function highlightNextBus(tableId) {
+        const now = new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+
+        $(`#${tableId} tbody tr`).each(function() {
+            const timeText = $(this).find("td").text().trim();
+            const busTime = new Date();
+            
+            const timeParts = timeText.split(" ");
+            const [hour, minute] = timeParts[0].split(":");
+            busTime.setHours(timeParts[1] === "PM" ? +hour + 12 : +hour);
+            busTime.setMinutes(minute);
+            busTime.setSeconds(0);
+
+            if (busTime > now) {
+                $(this).addClass("next-bus");
+                return false;  // Break the loop after the first match
+            }
+        });
+    }
+
+    highlightNextBus("ev2-table");
+    highlightNextBus("ev4-table");
+});
+</script>
+
+</body>
+</html>
